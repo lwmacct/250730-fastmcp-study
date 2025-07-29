@@ -1,0 +1,12 @@
+[project]
+name = "mcp-shared"
+version = "0.1.1"
+description = "Shared utilities and components for FastMCP servers"
+readme = "README.md"
+authors = [{ name = "lwmacct", email = "lwmacct@icloud.com" }]
+requires-python = ">=3.12"
+dependencies = ["fastmcp==2.10.6"]
+
+[build-system]
+requires = ["uv_build>=0.8.2,<0.9.0"]
+build-backend = "uv_build"

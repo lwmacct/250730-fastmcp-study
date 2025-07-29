@@ -1,0 +1,15 @@
+[project]
+name = "http-server"
+version = "0.1.0"
+description = "FastMCP HTTP server with streamable protocol"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp==2.10.6",
+    "httpx>=0.28.1",
+    "uvicorn>=0.32.1",
+    "mcp-shared",
+]
+
+[tool.uv.sources]
+mcp-shared = { workspace = true }

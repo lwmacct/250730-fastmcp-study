@@ -1,0 +1,19 @@
+[project]
+name = "250730-fastmcp-study"
+version = "0.1.0"
+description = "mcp server for fastmcp study"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["fastmcp==2.10.6", "httpx>=0.28.1", "mcp-shared"]
+
+
+[tool.uv.workspace]
+members = [
+    "projects/stdio-server",
+    "projects/http-server",
+    "projects/mcp-shared",
+]
+
+
+[tool.uv.sources]
+mcp-shared = { workspace = true }
