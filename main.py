@@ -1,5 +1,5 @@
 """
-FastMCP Study - Test Client
+FastMCP Study - 测试客户端
 测试客户端，支持连接不同类型的 MCP 服务器进行功能测试
 """
 
@@ -13,19 +13,19 @@ from fastmcp import Client
 
 async def test_server_info(client: Client, server_type: str):
     """测试服务器信息工具"""
-    print(f"🔍 Testing {server_type} server info...")
+    print(f"🔍 测试 {server_type} 服务器信息...")
     try:
         result = await client.call_tool("get_server_info")
-        print(f"✅ Server Info: {result}")
+        print(f"✅ 服务器信息: {result}")
         return True
     except Exception as e:
-        print(f"❌ Error getting server info: {e}")
+        print(f"❌ 获取服务器信息时出错: {e}")
         return False
 
 
 async def test_math_operations(client: Client, server_type: str):
     """测试数学运算功能"""
-    print(f"🧮 Testing {server_type} math operations...")
+    print(f"🧮 测试 {server_type} 数学运算...")
     try:
         if server_type == "stdio":
             # STDIO 服务器使用 math_operations
@@ -37,16 +37,16 @@ async def test_math_operations(client: Client, server_type: str):
             result = await client.call_tool("calculate", {
                 "expression": "10 + 5 * 2"
             })
-        print(f"✅ Math Result: {result}")
+        print(f"✅ 数学运算结果: {result}")
         return True
     except Exception as e:
-        print(f"❌ Error in math operations: {e}")
+        print(f"❌ 数学运算出错: {e}")
         return False
 
 
 async def test_text_operations(client: Client, server_type: str):
     """测试文本处理功能"""
-    print(f"📝 Testing {server_type} text operations...")
+    print(f"📝 测试 {server_type} 文本操作...")
     try:
         if server_type == "stdio":
             # STDIO 服务器使用 text_analyzer
@@ -58,16 +58,16 @@ async def test_text_operations(client: Client, server_type: str):
             result = await client.call_tool("string_operations", {
                 "text": "Hello FastMCP", "operation": "upper"
             })
-        print(f"✅ Text Result: {result}")
+        print(f"✅ 文本操作结果: {result}")
         return True
     except Exception as e:
-        print(f"❌ Error in text operations: {e}")
+        print(f"❌ 文本操作出错: {e}")
         return False
 
 
 async def test_advanced_features(client: Client, server_type: str):
     """测试高级功能"""
-    print(f"⚡ Testing {server_type} advanced features...")
+    print(f"⚡ 测试 {server_type} 高级功能...")
     try:
         if server_type == "stdio":
             # 测试文件操作
@@ -75,62 +75,62 @@ async def test_advanced_features(client: Client, server_type: str):
                 "operation": "list"
             })
             print(
-                f"✅ File Operations: Found {len(result.get('files', []))} items")
+                f"✅ 文件操作: 找到 {len(result.get('files', []))} 个项目")
 
             # 测试数据处理
             result2 = await client.call_tool("data_processor", {
                 "data": [1, 2, 3, 4, 5], "operation": "statistics"
             })
-            print(f"✅ Data Processing: {result2}")
+            print(f"✅ 数据处理: {result2}")
 
         else:
             # 测试数据生成
             result = await client.call_tool("generate_data", {
                 "data_type": "numbers", "count": 5
             })
-            print(f"✅ Data Generation: {result}")
+            print(f"✅ 数据生成: {result}")
 
             # 测试天气功能
             result2 = await client.call_tool("get_weather", {
                 "city": "Beijing", "days": 3
             })
-            print(f"✅ Weather: {result2}")
+            print(f"✅ 天气信息: {result2}")
 
         return True
     except Exception as e:
-        print(f"❌ Error in advanced features: {e}")
+        print(f"❌ 高级功能测试出错: {e}")
         return False
 
 
 async def test_resources(client: Client, server_type: str):
     """测试资源功能"""
-    print(f"📚 Testing {server_type} resources...")
+    print(f"📚 测试 {server_type} 资源...")
     try:
         # 列出可用资源
         resources = await client.list_resources()
-        print(f"📋 Available resources: {len(resources)} found")
+        print(f"📋 可用资源: 找到 {len(resources)} 个")
 
         if resources:
             # 读取第一个资源
             first_resource = resources[0]
             resource_uri = first_resource.uri
-            print(f"🔍 Reading resource: {resource_uri}")
+            print(f"🔍 读取资源: {resource_uri}")
 
             content = await client.read_resource(resource_uri)
-            print(f"✅ Resource content: {len(str(content))} characters")
+            print(f"✅ 资源内容: {len(str(content))} 个字符")
             return True
         else:
-            print("ℹ️  No resources available to test")
+            print("ℹ️  没有可测试的资源")
             return True
 
     except Exception as e:
-        print(f"❌ Error testing resources: {e}")
+        print(f"❌ 测试资源时出错: {e}")
         return False
 
 
 async def run_comprehensive_test(server_type: str, server_path: Optional[str] = None):
     """运行全面的服务器测试"""
-    print(f"🚀 Starting comprehensive test for {server_type.upper()} server")
+    print(f"🚀 开始 {server_type.upper()} 服务器的全面测试")
     print("=" * 60)
 
     # 根据服务器类型创建客户端
@@ -145,7 +145,7 @@ async def run_comprehensive_test(server_type: str, server_path: Optional[str] = 
         else:
             client = Client("http://localhost:8000/mcp")
     else:
-        print(f"❌ Unsupported server type: {server_type}")
+        print(f"❌ 不支持的服务器类型: {server_type}")
         return False
 
     test_results = []
@@ -153,14 +153,14 @@ async def run_comprehensive_test(server_type: str, server_path: Optional[str] = 
     try:
         async with client:
             # 测试连接
-            print("🏓 Testing connection...")
+            print("🏓 测试连接...")
             await client.ping()
-            print("✅ Connection successful!")
+            print("✅ 连接成功!")
             print()
 
             # 列出可用工具
             tools = await client.list_tools()
-            print(f"🛠️  Available tools: {len(tools)} found")
+            print(f"🛠️  可用工具: 找到 {len(tools)} 个")
             for tool in tools:
                 print(f"   - {tool.name}: {tool.description}")
             print()
@@ -182,31 +182,31 @@ async def run_comprehensive_test(server_type: str, server_path: Optional[str] = 
             print()
 
     except Exception as e:
-        print(f"❌ Connection error: {e}")
+        print(f"❌ 连接错误: {e}")
         if server_type == "http":
-            print("💡 Hint: Make sure the HTTP server is running on localhost:8000")
-            print("   Run: uv run python projects/http-server/main.py")
+            print("💡 提示: 确保 HTTP 服务器在 localhost:8000 上运行")
+            print("   运行: uv run python projects/http-server/main.py")
         return False
 
     # 汇总测试结果
     print("=" * 60)
     passed = sum(test_results)
     total = len(test_results)
-    print(f"📊 Test Results for {server_type.upper()} server:")
-    print(f"   ✅ Passed: {passed}/{total}")
-    print(f"   ❌ Failed: {total - passed}/{total}")
+    print(f"📊 {server_type.upper()} 服务器测试结果:")
+    print(f"   ✅ 通过: {passed}/{total}")
+    print(f"   ❌ 失败: {total - passed}/{total}")
 
     if passed == total:
-        print("🎉 All tests passed!")
+        print("🎉 所有测试通过!")
         return True
     else:
-        print("⚠️  Some tests failed")
+        print("⚠️  部分测试失败")
         return False
 
 
 async def run_quick_test(server_type: str, tool_name: str, params: dict):
     """运行快速单个工具测试"""
-    print(f"⚡ Quick test: {tool_name} on {server_type.upper()} server")
+    print(f"⚡ 快速测试: {tool_name} 在 {server_type.upper()} 服务器上")
 
     # 创建客户端
     if server_type == "stdio":
@@ -214,27 +214,27 @@ async def run_quick_test(server_type: str, tool_name: str, params: dict):
     elif server_type == "http":
         client = Client("http://localhost:8000/mcp")
     else:
-        print(f"❌ Unsupported server type: {server_type}")
+        print(f"❌ 不支持的服务器类型: {server_type}")
         return
 
     try:
         async with client:
             await client.ping()
             result = await client.call_tool(tool_name, params)
-            print(f"✅ Result: {result}")
+            print(f"✅ 结果: {result}")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"❌ 错误: {e}")
 
 
 def main():
     """主函数，解析命令行参数并运行测试"""
     parser = argparse.ArgumentParser(
-        description="FastMCP Study - Test Client",
+        description="FastMCP Study - 测试客户端",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  python main.py stdio                    # Test STDIO server (comprehensive)
-  python main.py http                     # Test HTTP server (comprehensive)
+示例:
+  python main.py stdio                    # 测试 STDIO 服务器 (全面测试)
+  python main.py http                     # 测试 HTTP 服务器 (全面测试)
   python main.py stdio --quick get_server_info
   python main.py http --quick calculate --params '{"expression": "2+2"}'
   python main.py stdio --path "custom_server.py"
@@ -244,24 +244,24 @@ Examples:
     parser.add_argument(
         "server_type",
         choices=["stdio", "http"],
-        help="Type of MCP server to test"
+        help="要测试的 MCP 服务器类型"
     )
 
     parser.add_argument(
         "--quick",
         metavar="TOOL_NAME",
-        help="Run quick test for a specific tool"
+        help="运行特定工具的快速测试"
     )
 
     parser.add_argument(
         "--params",
         default="{}",
-        help="JSON parameters for quick test (default: {})"
+        help="快速测试的 JSON 参数 (默认: {})"
     )
 
     parser.add_argument(
         "--path",
-        help="Custom server path/URL (overrides default)"
+        help="自定义服务器路径/URL (覆盖默认值)"
     )
 
     args = parser.parse_args()
@@ -270,8 +270,8 @@ Examples:
     if args.server_type == "stdio" and not args.path:
         server_file = Path("projects/stdio-server/main.py")
         if not server_file.exists():
-            print(f"❌ Server file not found: {server_file}")
-            print("Please make sure the STDIO server file exists")
+            print(f"❌ 服务器文件未找到: {server_file}")
+            print("请确保 STDIO 服务器文件存在")
             sys.exit(1)
 
     try:
@@ -287,10 +287,10 @@ Examples:
             sys.exit(0 if success else 1)
 
     except KeyboardInterrupt:
-        print("\n🛑 Test interrupted by user")
+        print("\n🛑 用户中断测试")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        print(f"❌ 意外错误: {e}")
         sys.exit(1)
 
 

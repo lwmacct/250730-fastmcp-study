@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Enhanced STDIO MCP Server with shared components
+增强型 STDIO MCP 服务器，具有共享组件
 
-This FastMCP server demonstrates:
-- Context-aware logging and progress reporting
-- Middleware integration
-- Reusable tool patterns from shared library
-- Structured prompt templates
-- Professional async/await patterns
+这个 FastMCP 服务器演示了:
+- 上下文感知日志记录和进度报告
+- 中间件集成
+- 来自共享库的可重用工具模式
+- 结构化提示模板
+- 专业的 async/await 模式
 """
 
 import asyncio
@@ -19,7 +19,7 @@ from typing import Dict, List, Any
 
 from fastmcp import FastMCP, Context
 
-# Import shared components
+# 导入共享组件
 from mcp_shared import (
     setup_middleware,
     create_server_info_tool,
@@ -32,14 +32,14 @@ from mcp_shared import (
 
 # 初始化 FastMCP 服务器
 mcp = FastMCP(
-    name="Enhanced STDIO MCP Server",
+    name="增强型 STDIO MCP 服务器",
     instructions="""
-    An enhanced STDIO MCP server showcasing FastMCP capabilities with shared components:
-    - Context-aware logging and progress reporting
-    - Middleware for error handling and timing
-    - Reusable tools from shared library
-    - LLM-ready prompt templates
-    - Professional development patterns
+    一个展示 FastMCP 功能的增强型 STDIO MCP 服务器，具有共享组件:
+    - 上下文感知日志记录和进度报告
+    - 用于错误处理和计时的中间件
+    - 来自共享库的可重用工具
+    - LLM 就绪的提示模板
+    - 专业开发模式
     """,
     on_duplicate_tools="warn",
     on_duplicate_resources="warn",
@@ -50,7 +50,7 @@ mcp = FastMCP(
 setup_middleware(mcp, server_type="stdio")
 
 # 添加共享工具
-create_server_info_tool(mcp, "Enhanced STDIO MCP Server", "STDIO")
+create_server_info_tool(mcp, "增强型 STDIO MCP 服务器", "STDIO")
 create_math_tool(mcp)
 create_string_tool(mcp)
 create_data_generator_tool(mcp)
@@ -62,10 +62,10 @@ create_troubleshooting_prompt(mcp)
 
 
 # STDIO 专用工具
-@mcp.tool(description="Get current system time with timezone information")
+@mcp.tool(description="获取当前系统时间，包含时区信息")
 async def get_current_time(ctx: Context, timezone: str = "UTC") -> dict:
-    """Get current time with enhanced timezone support"""
-    await ctx.info(f"Fetching current time for timezone: {timezone}")
+    """获取当前时间，支持增强的时区功能"""
+    await ctx.info(f"正在获取时区 {timezone} 的当前时间")
 
     current_time = datetime.datetime.now()
 
@@ -78,15 +78,15 @@ async def get_current_time(ctx: Context, timezone: str = "UTC") -> dict:
     }
 
 
-@mcp.tool(description="Advanced mathematical operations with detailed analysis")
+@mcp.tool(description="高级数学运算，包含详细分析")
 async def math_operations(numbers: List[float], operation: str, ctx: Context) -> dict:
-    """Perform mathematical operations on a list of numbers"""
-    await ctx.info(f"Performing {operation} on {len(numbers)} numbers")
+    """对数字列表执行数学运算"""
+    await ctx.info(f"正在对 {len(numbers)} 个数字执行 {operation} 运算")
     await ctx.report_progress(progress=25, total=100)
 
     if not numbers:
-        await ctx.error("Empty numbers list provided")
-        return {"error": "No numbers provided", "success": False}
+        await ctx.error("提供的数字列表为空")
+        return {"error": "未提供数字", "success": False}
 
     operations = {
         "sum": sum(numbers),
@@ -100,15 +100,15 @@ async def math_operations(numbers: List[float], operation: str, ctx: Context) ->
     await ctx.report_progress(progress=75, total=100)
 
     if operation not in operations:
-        await ctx.warning(f"Unknown operation: {operation}")
+        await ctx.warning(f"未知运算: {operation}")
         return {
-            "error": f"Unknown operation: {operation}",
+            "error": f"未知运算: {operation}",
             "available_operations": list(operations.keys()),
             "success": False
         }
 
     result = operations[operation]
-    await ctx.info(f"Operation {operation} completed: {result}")
+    await ctx.info(f"运算 {operation} 完成: {result}")
     await ctx.report_progress(progress=100, total=100)
 
     return {
@@ -121,10 +121,10 @@ async def math_operations(numbers: List[float], operation: str, ctx: Context) ->
     }
 
 
-@mcp.tool(description="Analyze text with comprehensive statistics and insights")
+@mcp.tool(description="使用综合统计和洞察分析文本")
 async def text_analyzer(text: str, analysis_type: str, ctx: Context) -> dict:
-    """Comprehensive text analysis tool"""
-    await ctx.info(f"Analyzing text with {analysis_type} analysis")
+    """综合文本分析工具"""
+    await ctx.info(f"正在使用 {analysis_type} 分析分析文本")
     await ctx.report_progress(progress=20, total=100)
 
     # 基础统计
@@ -154,15 +154,15 @@ async def text_analyzer(text: str, analysis_type: str, ctx: Context) -> dict:
     await ctx.report_progress(progress=80, total=100)
 
     if analysis_type not in analyses:
-        await ctx.warning(f"Unknown analysis type: {analysis_type}")
+        await ctx.warning(f"未知分析类型: {analysis_type}")
         return {
-            "error": f"Unknown analysis type: {analysis_type}",
+            "error": f"未知分析类型: {analysis_type}",
             "available_types": list(analyses.keys()),
             "success": False
         }
 
     result = analyses[analysis_type]
-    await ctx.info("Text analysis completed successfully")
+    await ctx.info("文本分析成功完成")
     await ctx.report_progress(progress=100, total=100)
 
     return {
@@ -175,10 +175,10 @@ async def text_analyzer(text: str, analysis_type: str, ctx: Context) -> dict:
     }
 
 
-@mcp.tool(description="Process and analyze data collections with filtering and sorting")
+@mcp.tool(description="处理和分析数据集合，支持过滤和排序")
 async def data_processor(data: List[Any], operation: str, ctx: Context) -> dict:
-    """Process data collections with various operations"""
-    await ctx.info(f"Processing {len(data)} items with {operation} operation")
+    """使用各种操作处理数据集合"""
+    await ctx.info(f"正在对 {len(data)} 个项目执行 {operation} 操作")
     await ctx.report_progress(progress=30, total=100)
 
     # 将所有数据转换为字符串以避免类型错误
@@ -195,15 +195,15 @@ async def data_processor(data: List[Any], operation: str, ctx: Context) -> dict:
     await ctx.report_progress(progress=70, total=100)
 
     if operation not in operations:
-        await ctx.error(f"Unknown operation: {operation}")
+        await ctx.error(f"未知操作: {operation}")
         return {
-            "error": f"Unknown operation: {operation}",
+            "error": f"未知操作: {operation}",
             "available_operations": list(operations.keys()),
             "success": False
         }
 
     result = operations[operation]
-    await ctx.info("Data processing completed successfully")
+    await ctx.info("数据处理成功完成")
     await ctx.report_progress(progress=100, total=100)
 
     return {
@@ -217,11 +217,11 @@ async def data_processor(data: List[Any], operation: str, ctx: Context) -> dict:
     }
 
 
-@mcp.tool(description="Enhanced greeting with personalization and context")
+@mcp.tool(description="增强型问候，支持个性化和上下文")
 async def greet_advanced(name: str, style: str, ctx: Context,
                          language: str = "en") -> dict:
-    """Generate personalized greetings in different styles and languages"""
-    await ctx.info(f"Generating {style} greeting for {name} in {language}")
+    """以不同风格和语言生成个性化问候"""
+    await ctx.info(f"正在为 {name} 生成 {style} 风格的问候，语言: {language}")
 
     greetings = {
         "en": {
@@ -239,16 +239,16 @@ async def greet_advanced(name: str, style: str, ctx: Context,
     }
 
     if language not in greetings or style not in greetings[language]:
-        await ctx.warning(f"Unsupported combination: {language}/{style}")
+        await ctx.warning(f"不支持的组合: {language}/{style}")
         return {
-            "error": "Unsupported language or style",
+            "error": "不支持的语言或风格",
             "available_languages": list(greetings.keys()),
             "available_styles": list(greetings.get("en", {}).keys()),
             "success": False
         }
 
     greeting = greetings[language][style]
-    await ctx.info("Generated greeting successfully")
+    await ctx.info("问候生成成功")
 
     return {
         "greeting": greeting,
@@ -264,11 +264,11 @@ async def greet_advanced(name: str, style: str, ctx: Context,
 # 资源
 @mcp.resource(uri="mcp://server/status")
 async def server_status_resource(ctx: Context) -> str:
-    """Comprehensive server status information"""
-    await ctx.info("Generating comprehensive server status report")
+    """综合服务器状态信息"""
+    await ctx.info("正在生成综合服务器状态报告")
 
     return {
-        "server_name": "Enhanced STDIO MCP Server",
+        "server_name": "增强型 STDIO MCP 服务器",
         "server_type": "stdio",
         "status": "running",
         "uptime": "active session",
@@ -294,8 +294,8 @@ async def server_status_resource(ctx: Context) -> str:
 
 @mcp.resource(uri="mcp://data/sample/{data_type}")
 async def sample_data_resource(data_type: str, ctx: Context) -> Dict[str, Any]:
-    """Generate sample data resource using shared components"""
-    await ctx.info(f"Generating sample data resource for type: {data_type}")
+    """使用共享组件生成示例数据资源"""
+    await ctx.info(f"正在生成 {data_type} 类型的示例数据资源")
 
     # 重用共享库的数据生成逻辑
     sample_generators = {
@@ -316,14 +316,14 @@ async def sample_data_resource(data_type: str, ctx: Context) -> Dict[str, Any]:
     }
 
     if data_type not in sample_generators:
-        await ctx.warning(f"Unknown data type: {data_type}")
+        await ctx.warning(f"未知数据类型: {data_type}")
         return {
-            "error": f"Unknown data type: {data_type}",
+            "error": f"未知数据类型: {data_type}",
             "available_types": list(sample_generators.keys())
         }
 
     data = sample_generators[data_type]()
-    await ctx.info(f"Generated {len(data)} sample items for {data_type}")
+    await ctx.info(f"已生成 {len(data)} 个 {data_type} 类型的示例项目")
 
     return {
         "resource_type": "sample_data",
@@ -337,8 +337,8 @@ async def sample_data_resource(data_type: str, ctx: Context) -> Dict[str, Any]:
 
 @mcp.resource(uri="mcp://system/info")
 async def system_info_resource(ctx: Context) -> Dict[str, Any]:
-    """System information resource with filtered sensitive data"""
-    await ctx.info("Collecting system information")
+    """系统信息资源，过滤敏感数据"""
+    await ctx.info("正在收集系统信息")
 
     # 过滤敏感环境变量
     safe_env = {k: v for k, v in os.environ.items()
@@ -362,12 +362,12 @@ async def system_info_resource(ctx: Context) -> Dict[str, Any]:
 
 
 async def main():
-    """Main entry point for the STDIO server"""
-    print("🚀 Starting Enhanced STDIO MCP Server with shared components...")
-    print("📦 Features: Context logging, progress reporting, middleware")
-    print("🔧 Architecture: Shared components from mcp-shared library")
-    print("📡 Transport: STDIO (standard input/output)")
-    print("✅ Server ready for MCP client connections")
+    """STDIO 服务器的主入口点"""
+    print("🚀 正在启动具有共享组件的增强型 STDIO MCP 服务器...")
+    print("📦 功能: 上下文日志记录、进度报告、中间件")
+    print("🔧 架构: 来自 mcp-shared 库的共享组件")
+    print("📡 传输: STDIO (标准输入/输出)")
+    print("✅ 服务器已准备好接受 MCP 客户端连接")
 
     # 使用 run_async 避免事件循环冲突
     await mcp.run_async(transport="stdio")

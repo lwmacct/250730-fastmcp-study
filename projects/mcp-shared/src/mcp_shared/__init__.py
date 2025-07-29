@@ -1,5 +1,5 @@
 """
-MCP Shared - Shared utilities and components for FastMCP servers.
+MCP Shared - FastMCP 服务器的共享工具和组件。
 """
 
 __version__ = "0.1.0"
@@ -18,7 +18,7 @@ from .prompts import (
 )
 
 __all__ = [
-    "setup_middleware", 
+    "setup_middleware",
     "create_server_info_tool",
     "create_math_tool",
     "create_string_tool",

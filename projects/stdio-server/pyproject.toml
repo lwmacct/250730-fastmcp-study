@@ -1,7 +1,7 @@
 [project]
 name = "stdio-server"
 version = "0.1.0"
-description = "FastMCP STDIO server with enhanced features"
+description = "具有增强功能的 FastMCP STDIO 服务器"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["fastmcp==2.10.6", "mcp-shared"]

@@ -1,4 +1,4 @@
-# Stdio MCP Server
+# Stdio MCP 服务器
 
 这是一个使用 stdio 传输协议的 MCP (Model Context Protocol) 服务器示例。
 

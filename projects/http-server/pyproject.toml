@@ -1,7 +1,7 @@
 [project]
 name = "http-server"
 version = "0.1.0"
-description = "FastMCP HTTP server with streamable protocol"
+description = "使用 streamable 协议的 FastMCP HTTP 服务器"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

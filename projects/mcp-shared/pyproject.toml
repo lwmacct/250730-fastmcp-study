@@ -1,7 +1,7 @@
 [project]
 name = "mcp-shared"
 version = "0.1.1"
-description = "Shared utilities and components for FastMCP servers"
+description = "FastMCP 服务器的共享工具和组件"
 readme = "README.md"
 authors = [{ name = "lwmacct", email = "lwmacct@icloud.com" }]
 requires-python = ">=3.12"

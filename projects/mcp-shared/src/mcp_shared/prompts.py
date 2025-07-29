@@ -1,116 +1,116 @@
 """
-Shared prompt templates for FastMCP servers.
+FastMCP 服务器的共享提示模板。
 """
 
 from fastmcp import FastMCP
 
 
 def create_data_analysis_prompt(mcp: FastMCP) -> None:
-    """Create a data analysis prompt template"""
+    """创建数据分析提示模板"""
 
     @mcp.prompt(
         name="data_analysis_prompt",
-        description="Generate data analysis queries and instructions"
+        description="生成数据分析查询和指令"
     )
     async def data_analysis_prompt(objective: str, data_format: str = "JSON") -> str:
-        return f"""You are a data analysis expert. Help analyze data with the following objective:
+        return f"""您是一位数据分析专家。帮助分析具有以下目标的数据:
 
-**Objective**: {objective}
-**Data Format**: {data_format}
+**目标**: {objective}
+**数据格式**: {data_format}
 
-Please provide:
-1. Recommended analysis approach
-2. Key metrics to examine
-3. Potential insights to look for
-4. Visualization suggestions
-5. Next steps for deeper analysis
+请提供:
+1. 推荐的分析方法
+2. 要检查的关键指标
+3. 要寻找的潜在洞察
+4. 可视化建议
+5. 深入分析的后续步骤
 
-Consider both statistical analysis and data quality checks in your recommendations."""
+在您的建议中考虑统计分析和数据质量检查。"""
 
 
 def create_troubleshooting_prompt(mcp: FastMCP) -> None:
-    """Create a troubleshooting guide prompt"""
+    """创建故障排除指南提示"""
 
     @mcp.prompt(
         name="troubleshooting_guide",
-        description="Generate troubleshooting steps for technical issues"
+        description="为技术问题生成故障排除步骤"
     )
     async def troubleshooting_guide(issue_type: str, context: str = "general") -> str:
-        return f"""Technical Troubleshooting Guide
+        return f"""技术故障排除指南
 
-**Issue Type**: {issue_type}
-**Context**: {context}
+**问题类型**: {issue_type}
+**上下文**: {context}
 
-Follow this systematic troubleshooting approach:
+按照这个系统性的故障排除方法:
 
-## Step 1: Initial Assessment
-- Gather error messages and symptoms
-- Check system status and recent changes
-- Verify basic connectivity and permissions
+## 步骤 1: 初步评估
+- 收集错误消息和症状
+- 检查系统状态和最近更改
+- 验证基本连接和权限
 
-## Step 2: Common Resolutions
-- Restart relevant services
-- Clear caches and temporary files
-- Check configuration files
-- Verify dependencies
+## 步骤 2: 常见解决方案
+- 重启相关服务
+- 清除缓存和临时文件
+- 检查配置文件
+- 验证依赖项
 
-## Step 3: Advanced Diagnostics
-- Enable debug logging
-- Monitor system resources
-- Test in isolated environment
-- Check for known issues
+## 步骤 3: 高级诊断
+- 启用调试日志
+- 监控系统资源
+- 在隔离环境中测试
+- 检查已知问题
 
-## Step 4: Documentation
-- Record findings and solutions
-- Update documentation
-- Create preventive measures
+## 步骤 4: 文档记录
+- 记录发现和解决方案
+- 更新文档
+- 创建预防措施
 
-Remember to document each step and its outcome."""
+记住记录每个步骤及其结果。"""
 
 
 def create_web_api_prompt(mcp: FastMCP) -> None:
-    """Create a web API design prompt"""
+    """创建 Web API 设计提示"""
 
     @mcp.prompt(
         name="web_api_request",
-        description="Generate web API design and usage guidelines"
+        description="生成 Web API 设计和使用指南"
     )
     async def web_api_request(endpoint_purpose: str, method: str = "GET") -> str:
-        return f"""Web API Design Guidelines
+        return f"""Web API 设计指南
 
-**Endpoint Purpose**: {endpoint_purpose}
-**HTTP Method**: {method}
+**端点目的**: {endpoint_purpose}
+**HTTP 方法**: {method}
 
-## Design Considerations
+## 设计考虑因素
 
-### 1. URL Structure
-- Use RESTful conventions
-- Include version in path (/api/v1/)
-- Use clear, descriptive resource names
-- Follow hierarchical relationships
+### 1. URL 结构
+- 使用 RESTful 约定
+- 在路径中包含版本 (/api/v1/)
+- 使用清晰、描述性的资源名称
+- 遵循层次关系
 
-### 2. Request/Response Format
-- Use JSON for data exchange
-- Include proper HTTP status codes
-- Implement consistent error responses
-- Add pagination for collections
+### 2. 请求/响应格式
+- 使用 JSON 进行数据交换
+- 包含适当的 HTTP 状态码
+- 实现一致的错误响应
+- 为集合添加分页
 
-### 3. Security
-- Implement authentication/authorization
-- Use HTTPS for all communications
-- Validate all input parameters
-- Rate limiting and throttling
+### 3. 安全性
+- 实现身份验证/授权
+- 对所有通信使用 HTTPS
+- 验证所有输入参数
+- 速率限制和节流
 
-### 4. Documentation
-- Provide clear API documentation
-- Include request/response examples
-- Document error scenarios
-- Version changelog
+### 4. 文档
+- 提供清晰的 API 文档
+- 包含请求/响应示例
+- 记录错误场景
+- 版本变更日志
 
-### 5. Testing
-- Unit tests for all endpoints
-- Integration testing
-- Load testing for performance
-- Security testing
+### 5. 测试
+- 所有端点的单元测试
+- 集成测试
+- 性能负载测试
+- 安全测试
 
-Design your API to be intuitive, secure, and maintainable."""
+设计您的 API 使其直观、安全且可维护。"""

@@ -1,4 +1,4 @@
-# HTTP MCP Server
+# HTTP MCP 服务器
 
 这是一个使用 streamable-http (SSE) 传输协议的 MCP (Model Context Protocol) 服务器示例。
 
