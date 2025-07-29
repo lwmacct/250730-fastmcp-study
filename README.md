@@ -1,135 +1,112 @@
-# FastMCP Study Project - Code Reuse with Shared Components
+# FastMCP Study Project
 
-本项目演示了如何使用 `uv` 工作空间和共享库来消除 FastMCP 服务器之间的重复代码。
+一个用于学习和演示 FastMCP 框架功能的研究项目，展示了如何构建不同类型的 MCP 服务器。
 
-## 🏗️ 项目架构
+## 项目概述
 
-### 工作空间结构
-```
-250730-fastmcp-study/
-├── main.py                    # 测试客户端
-├── pyproject.toml             # 根工作空间配置
-├── packages/
-│   └── mcp-shared/           # 共享组件库
-│       ├── src/mcp_shared/
-│       │   ├── __init__.py
-│       │   ├── middleware.py  # 中间件组件
-│       │   ├── tools.py      # 可复用工具
-│       │   └── prompts.py    # 提示模板
-│       └── pyproject.toml
-└── servers/
-    ├── stdio-server/         # STDIO 传输服务器
-    │   ├── main.py
-    │   └── pyproject.toml
-    └── http-server/          # HTTP 传输服务器
-        ├── main.py
-        └── pyproject.toml
-```
+本项目旨在通过实际示例来学习和理解 FastMCP 框架的核心概念。它包含了多种类型的 MCP 服务器实现，展示了不同的传输协议和功能特性。
 
-### 🔄 代码复用设计
+## 主要功能
 
-#### 共享组件库 (`packages/mcp-shared`)
+### 测试客户端
+项目包含一个功能完整的测试客户端，能够：
+- 连接不同类型的 MCP 服务器
+- 执行全面的功能测试
+- 验证服务器响应和错误处理
+- 提供详细的测试报告
 
-**1. 共享工具 (`tools.py`)**
-- `create_server_info_tool()` - 服务器信息工具
-- `create_math_tool()` - 数学计算工具
-- `create_string_tool()` - 字符串操作工具  
-- `create_data_generator_tool()` - 数据生成工具
+### STDIO 服务器
+基于标准输入输出协议的 MCP 服务器，提供：
+- 数学运算和计算功能
+- 文本分析和处理
+- 数据集合操作
+- 多语言问候服务
+- 系统信息查询
+- 动态资源管理
 
-**2. 共享提示模板 (`prompts.py`)**
-- `create_data_analysis_prompt()` - 数据分析提示
-- `create_troubleshooting_prompt()` - 故障排除提示
-- `create_web_api_prompt()` - Web API 提示
+### HTTP 服务器
+基于 HTTP 协议的 MCP 服务器，具备：
+- 网络请求检查功能
+- 天气数据模拟
+- 消息回显和格式化
+- Web API 调试工具
+- 实时数据生成
+- HTTP 专用资源
 
-**3. 中间件支持 (`middleware.py`)**
-- `setup_middleware()` - 标准中间件设置（为未来扩展保留）
+### 共享组件库
+为了减少代码重复和提高维护性，项目实现了：
+- 可重用的工具组件
+- 标准化的提示模板
+- 统一的中间件支持
+- 通用的错误处理机制
 
-#### 服务器实现
+## 使用方法
 
-**STDIO 服务器特性:**
-- 使用所有共享工具和提示
-- 专用工具：时间获取、数学操作、文本分析、数据处理、多语言问候
-- 动态资源：服务器状态、示例数据、系统信息
-
-**HTTP 服务器特性:**
-- 使用所有共享工具和提示
-- 专用工具：HTTP 请求检查、天气模拟、消息回声
-- HTTP 调试提示模板
-- 动态资源：服务器信息、示例数据、天气预报
-
-## 🚀 使用方法
+### 环境准备
+确保系统已安装 Python 3.12 或更高版本，并使用 `uv` 进行包管理。
 
 ### 安装依赖
 ```bash
 uv sync
 ```
 
-### 测试服务器
+### 运行测试
 
-**快速测试:**
+**快速功能测试：**
 ```bash
 # 测试 STDIO 服务器
-uv run python main.py stdio --quick get_server_info
-
-# 测试共享数学工具
-uv run python main.py stdio --quick calculate --params '{"expression": "2+3*4"}'
-
-# 测试共享字符串工具
-uv run python main.py stdio --quick string_operations --params '{"text": "Hello", "operation": "upper"}'
-```
-
-**完整测试:**
-```bash
-# 运行所有 STDIO 测试
 uv run python main.py stdio
 
-# 运行所有 HTTP 测试
+# 测试 HTTP 服务器
 uv run python main.py http
 ```
 
-## 📊 代码复用效果
+**特定功能测试：**
+```bash
+# 测试服务器信息功能
+uv run python main.py stdio --quick get_server_info
 
-### 消除的重复代码
-- **中间件设置** - 统一的错误处理和日志记录
-- **核心工具** - 数学、字符串、数据生成等通用功能
-- **提示模板** - LLM 交互的结构化模板
-- **Context 注入** - 标准化的上下文感知日志记录
-
-### 架构优势
-1. **DRY 原则** - 不重复代码，单一数据源
-2. **易维护性** - 共享组件的修改自动影响所有服务器
-3. **一致性** - 所有服务器使用相同的工具行为
-4. **可扩展性** - 新服务器可轻松重用现有组件
-
-### 工作空间配置 (`pyproject.toml`)
-```toml
-[tool.uv.workspace]
-members = [
-    "servers/stdio-server",
-    "servers/http-server", 
-    "packages/mcp-shared",
-]
+# 测试数学计算功能
+uv run python main.py stdio --quick calculate --params '{"expression": "2+3*4"}'
 ```
 
-服务器通过以下方式引用共享库:
-```toml
-dependencies = ["mcp-shared"]
+## 项目特色
 
-[tool.uv.sources]
-mcp-shared = { workspace = true }
-```
+### 学习导向
+- 清晰的代码结构和注释
+- 渐进式的功能实现
+- 详细的错误处理和日志记录
+- 完整的测试覆盖
 
-## 🛠️ 技术栈
+### 实用功能
+- 多种传输协议支持
+- 丰富的工具和资源
+- 上下文感知的日志记录
+- 进度跟踪和状态报告
 
-- **uv** - Python 包管理和工作空间
-- **FastMCP 2.10.6** - MCP 服务器框架
-- **工作空间成员** - stdio-server, http-server, mcp-shared
-- **传输协议** - STDIO, Streamable HTTP
+### 可扩展性
+- 模块化的组件设计
+- 共享库的代码复用
+- 标准化的接口定义
+- 易于添加新功能
 
-## 📈 测试状态
+## 项目结构
 
-✅ **STDIO 服务器** - 完全工作，所有工具和资源正常  
-⚠️ **HTTP 服务器** - 共享组件工作，HTTP 特定功能需要进一步调试  
-✅ **共享库** - 成功消除代码重复，所有工具正常运行
+项目采用工作空间架构，包含：
+- 主测试客户端
+- STDIO 传输服务器
+- HTTP 传输服务器
+- 共享组件库
 
-这个架构演示了如何在 FastMCP 项目中有效实现代码复用，大大减少了维护成本并提高了代码质量。
+每个组件都有明确的职责和功能边界，便于理解和维护。
+
+## 学习价值
+
+通过这个项目，您可以学习到：
+- FastMCP 框架的基本概念
+- MCP 协议的实际应用
+- 不同传输协议的特点
+- 代码复用的最佳实践
+- 测试驱动的开发方法
+
+这个项目为 FastMCP 的学习和实验提供了完整的示例，帮助开发者快速上手并理解框架的核心特性。

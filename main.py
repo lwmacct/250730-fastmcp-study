@@ -92,7 +92,7 @@ async def test_advanced_features(client: Client, server_type: str):
 
             # 测试天气功能
             result2 = await client.call_tool("get_weather", {
-                "city": "Beijing", "days": 3
+                "location": "Beijing", "units": "celsius"
             })
             print(f"✅ 天气信息: {result2}")
 
